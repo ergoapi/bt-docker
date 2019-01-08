@@ -1,4 +1,4 @@
 pull:
 	git pull
 build: pull
-	docker build -t spanda/bt .
+	docker build  --no-cache -t spanda/bt .
