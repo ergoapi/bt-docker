@@ -2,9 +2,15 @@ FROM spanda/ptcore:latest
 
 LABEL MAINTAINER="ysicing"
 
-ADD . /tmp/
+RUN mkidr /install
+
+ADD . /install/
+
+WORKDIR /install/
+
+RUN bash +x /install/prepare.sh
 
 VOLUME [ "/www" ]
 
-RUN bash +x /tmp/install.sh
+RUN bash +x /install/init.sh
 

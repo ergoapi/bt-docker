@@ -1,21 +1,12 @@
 #!/bin/bash
 PATH=/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin:~/bin
 export PATH
-LANG=en_US.UTF-8
-is64bit=`getconf LONG_BIT`
 
-echo '---------------------------------------------';
 setup_path=/www
 port='8888'
 if [ -f $setup_path/server/panel/data/port.pl ];then
 	port=`cat $setup_path/server/panel/data/port.pl`
 fi
-
-startTime=`date +%s`
-
-apt-get update
-for pace in ruby lsb-release wget curl python python-dev python-imaging python-pip python-apt zip unzip openssl libssl-dev gcc libxml2 libxml2-dev libxslt zlib1g zlib1g-dev libjpeg-dev libpng-dev libffi-dev lsof libpcre3 libpcre3-dev cron;
-do apt-get -y install $pace ; done
 
 tmp=$(python -V 2>&1|awk '{print $2}')
 pVersion=${tmp:0:3}
@@ -241,10 +232,6 @@ fi
 cat /root/.ssh/id_rsa.pub >> /root/.ssh/authorized_keys
 chmod 600 /root/.ssh/authorized_keys
 
-if [ ! -f "/usr/bin/ufw" ];then
-	apt-get install -y ufw
-fi
-
 pip install psutil chardet psutil virtualenv $pipArg
 if [ ! -d '/etc/letsencrypt' ];then
 	mkdir -p /etc/letsencrypt
@@ -259,7 +246,6 @@ wget -O acme_install.sh https://dl.spanda.io/download/acme_install.sh
 nohup bash acme_install.sh &> /dev/null &
 sleep 1
 rm -f acme_install.sh
-
 
 	address=`curl -sS --connect-timeout 10 -m 60 https://www.bt.cn/Api/getIpAddress`
 	
@@ -283,7 +269,6 @@ rm -f acme_install.sh
 		echo "$address" > $setup_path/server/panel/data/iplist.txt
 	fi
 
-
 curl -sS --connect-timeout 10 -m 60 https://www.bt.cn/Api/SetupCount?type=Linux\&o=$1 > /dev/null 2>&1
 if [ "$1" != "" ];then
 	echo $1 > /www/server/panel/data/o.pl
@@ -291,18 +276,8 @@ if [ "$1" != "" ];then
 	python tools.py o
 fi
 
-echo -e "=================================================================="
-echo -e "\033[32mCongratulations! Install succeeded!\033[0m"
-echo -e "=================================================================="
 echo -e "Bt-Panel: http://$address:$port$auth_path"
 echo -e "username: $username"
 echo -e "password: $password"
-echo -e "\033[33mWarning:\033[0m"
-echo -e "\033[33mIf you cannot access the panel, \033[0m"
-echo -e "\033[33mrelease the following port (8888|888|80|443|20|21) in the security group\033[0m"
-echo -e "=================================================================="
 
-endTime=`date +%s`
-((outTime=($endTime-$startTime)/60))
-echo -e "Time consumed:\033[32m $outTime \033[0mMinute!"
 rm -f install.sh
