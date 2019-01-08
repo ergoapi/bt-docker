@@ -105,14 +105,14 @@ if [ "$isStart" == '' ];then
 	exit;
 fi
 
-if [ ! -f /root/.ssh/authorized_keys ] || [ ! -f /root/.ssh/id_rsa ];then
-	if [ -f /root/.ssh/id_rsa ];then
-		rm -f /root/.ssh/id_rsa /root/.ssh/id_rsa.pub
-	fi
-	ssh-keygen -q -t rsa -P "" -f /root/.ssh/id_rsa
-fi
-cat /root/.ssh/id_rsa.pub >> /root/.ssh/authorized_keys
-chmod 600 /root/.ssh/authorized_keys
+#if [ ! -f /root/.ssh/authorized_keys ] || [ ! -f /root/.ssh/id_rsa ];then
+#	if [ -f /root/.ssh/id_rsa ];then
+#		rm -f /root/.ssh/id_rsa /root/.ssh/id_rsa.pub
+#	fi
+#	ssh-keygen -q -t rsa -P "" -f /root/.ssh/id_rsa
+#fi
+#cat /root/.ssh/id_rsa.pub >> /root/.ssh/authorized_keys
+#chmod 600 /root/.ssh/authorized_keys
 
 pip install psutil chardet psutil virtualenv $pipArg
 if [ ! -d '/etc/letsencrypt' ];then
