@@ -1,3 +1,4 @@
+all: build
 pull:
 	git pull
 build: pull
