@@ -105,15 +105,6 @@ if [ "$isStart" == '' ];then
 	exit;
 fi
 
-#if [ ! -f /root/.ssh/authorized_keys ] || [ ! -f /root/.ssh/id_rsa ];then
-#	if [ -f /root/.ssh/id_rsa ];then
-#		rm -f /root/.ssh/id_rsa /root/.ssh/id_rsa.pub
-#	fi
-#	ssh-keygen -q -t rsa -P "" -f /root/.ssh/id_rsa
-#fi
-#cat /root/.ssh/id_rsa.pub >> /root/.ssh/authorized_keys
-#chmod 600 /root/.ssh/authorized_keys
-
 pip install psutil chardet psutil virtualenv $pipArg
 if [ ! -d '/etc/letsencrypt' ];then
 	mkdir -p /etc/letsencrypt
@@ -129,19 +120,19 @@ nohup bash acme_install.sh &> /dev/null &
 sleep 1
 rm -f acme_install.sh
 
-	address=`curl -sS --connect-timeout 10 -m 60 https://www.bt.cn/Api/getIpAddress`
+address=`curl -sS --connect-timeout 10 -m 60 ip.sb`
 	
-	if [ "$address" == '0.0.0.0' ] || [ "$address" == '' ];then
-		isHosts=`cat /etc/hosts|grep 'www.bt.cn'`
-		if [ "$isHosts" == '' ];then
-			echo "" >> /etc/hosts
-			echo "125.88.182.170 www.bt.cn" >> /etc/hosts
-			address=`curl -sS --connect-timeout 10 -m 60 https://www.bt.cn/Api/getIpAddress`
-			if [ "$address" == '' ];then
-				sed -i "/bt.cn/d" /etc/hosts
-			fi
-		fi
-	fi
+#	if [ "$address" == '0.0.0.0' ] || [ "$address" == '' ];then
+#		isHosts=`cat /etc/hosts|grep 'www.bt.cn'`
+#		if [ "$isHosts" == '' ];then
+#			echo "" >> /etc/hosts
+#			echo "125.88.182.170 www.bt.cn" >> /etc/hosts
+#			address=`curl -sS --connect-timeout 10 -m 60 https://www.bt.cn/Api/getIpAddress`
+#			if [ "$address" == '' ];then
+#				sed -i "/bt.cn/d" /etc/hosts
+#			fi
+#		fi
+#	fi
 	
 	ipCheck=`python -c "import re; print(re.match('^(?:[0-9]{1,3}\.){3}[0-9]{1,3}$','$address'))"`
 	if [ "$address" == "None" ];then
@@ -151,15 +142,15 @@ rm -f acme_install.sh
 		echo "$address" > $setup_path/server/panel/data/iplist.txt
 	fi
 
-curl -sS --connect-timeout 10 -m 60 https://www.bt.cn/Api/SetupCount?type=Linux\&o=$1 > /dev/null 2>&1
-if [ "$1" != "" ];then
-	echo $1 > /www/server/panel/data/o.pl
-	cd /www/server/panel
-	python tools.py o
-fi
+#curl -sS --connect-timeout 10 -m 60 https://www.bt.cn/Api/SetupCount?type=Linux\&o=$1 > /dev/null 2>&1
+#if [ "$1" != "" ];then
+#	echo $1 > /www/server/panel/data/o.pl
+#	cd /www/server/panel
+#	python tools.py o
+#fi
 
 echo -e "Bt-Panel: http://$address:$port$auth_path"
 echo -e "username: $username"
 echo -e "password: $password"
 
-rm -f install.sh
+#rm -f install.sh
