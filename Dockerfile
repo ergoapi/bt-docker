@@ -2,7 +2,7 @@ FROM spanda/ptcore:latest
 
 LABEL MAINTAINER="ysicing"
 
-RUN mkidr /install
+RUN mkdir /install
 
 ADD . /install/
 
