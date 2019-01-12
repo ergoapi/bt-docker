@@ -1,4 +1,5 @@
 #!/bin/bash
+
 PATH=/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin:~/bin
 export PATH
 
@@ -154,3 +155,6 @@ echo -e "username: $username"
 echo -e "password: $password"
 
 #rm -f install.sh
+#mkdir -p /etc/supervisor/conf.d /var/log/supervisor
+
+#cp -a /install/supervisord.conf /etc/supervisor/supervisord.conf
