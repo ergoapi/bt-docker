@@ -82,11 +82,13 @@ chmod +x $setup_path/server/panel/certbot-auto
 chmod -R +x $setup_path/server/panel/script
 echo "$port" > $setup_path/server/panel/data/port.pl
 /etc/init.d/bt start
-password=`cat /dev/urandom | head -n 16 | md5sum | head -c 8`
+#password=`cat /dev/urandom | head -n 16 | md5sum | head -c 8`
+password=12345678
 sleep 1
 admin_auth='/www/server/panel/data/admin_path.pl'
 if [ ! -f $admin_auth ];then
-	auth_path=`cat /dev/urandom | head -n 16 | md5sum | head -c 8`
+	#auth_path=`cat /dev/urandom | head -n 16 | md5sum | head -c 8`
+	auth_path="spanda"
 	echo "/$auth_path" > $admin_auth
 fi
 auth_path=`cat $admin_auth`
@@ -96,6 +98,8 @@ python tools.py username
 username=`python tools.pyc panel $password`
 cd ~
 echo "$password" > $setup_path/server/panel/default.pl
+echo "$username/$password" > $setup_path/server/panel/default_auth.pl
+
 chmod 600 $setup_path/server/panel/default.pl
 /etc/init.d/bt restart
 sleep 1
