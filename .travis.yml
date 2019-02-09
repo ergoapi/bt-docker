@@ -1,0 +1,13 @@
+sudo: required
+
+services:
+  - docker
+
+git:
+  depth: 1
+
+
+script:
+- docker build -t spanda/bt .
+- docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
+- docker push spanda/bt

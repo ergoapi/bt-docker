@@ -2,7 +2,7 @@
 
 PATH=/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin:~/bin
 export PATH
-address=$(curl ip.sb)
+address=$(curl -s ip.sb)
 port=${port:-8888}
 auth_path=$(cat /www/server/panel/data/admin_path.pl)
 login_info=$(cat /www/server/panel/default_auth.pl)

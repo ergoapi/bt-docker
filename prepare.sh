@@ -1,9 +1,9 @@
 #!/bin/bash
 
-cat > /etc/apt/sources.list <<EOF
-deb http://mirrors.ustc.edu.cn/debian/ sid main contrib non-free
-deb-src http://mirrors.ustc.edu.cn/debian/ sid main contrib non-free
-EOF
+#cat > /etc/apt/sources.list <<EOF
+#deb http://mirrors.ustc.edu.cn/debian/ sid main contrib non-free
+#deb-src http://mirrors.ustc.edu.cn/debian/ sid main contrib non-free
+#EOF
 
 apt-get update
 apt-get install --no-install-recommends --no-install-suggests -y  openssh-server ufw ruby lsb-release wget curl python python-dev python-pil python-pip python-apt zip unzip openssl libssl-dev gcc libxml2 libxml2-dev libxslt1-dev zlib1g zlib1g-dev libjpeg-dev libpng-dev libffi-dev lsof libpcre3 libpcre3-dev cron
